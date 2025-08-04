@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .forms import Loginform
 
 # Create your views here.
 def user_login(request):
+    if request.user.is_authenticated:
+        return redirect('home')
+
     form = Loginform(request.POST or None)
 
     if request.method == 'POST':
@@ -13,8 +16,15 @@ def user_login(request):
 
         if user is not None:
             login(request, user)
-            return redirect('hone')
+            return redirect('home')
         else:
             form.add_error(None, 'Invalid username or password.')
 
     return render(request, 'keyconnect/login.html', {'form': form})
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('login')
+
+    
