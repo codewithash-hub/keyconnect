@@ -47,6 +47,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'keyconnect_project.urls'
 
+LOGIN_URL = '/login/'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
